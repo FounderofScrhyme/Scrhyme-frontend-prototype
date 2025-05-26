@@ -156,6 +156,7 @@ export async function createComment(postId: string, content: string) {
     if (!post) throw new Error("Post not found");
 
     // Create comment and notification in a transaction
+    // $transaction() は複数の処理を一つのまとまった単位（トランザクション)で行う機能
     const [comment] = await prisma.$transaction(async (tx) => {
       // Create comment first
       const newComment = await tx.comment.create({
